@@ -23,18 +23,19 @@ Each instance exposes a port, all listening on 0.0.0.0 interface:
   - db3: `27003`
 
 #### DATA
-The container will create one volume at `/data`, but you can mount one or more to your host at these paths:
+The container will create one volume at `/data/db`, with three directories. You can also mount one volume
+containing all 3 directories or mount three separate volumes to your host at these paths:
 
-  - db1: `/data/db1` [primary]
-  - db2: `/data/db2`
-  - db3: `/data/db3`
+  - db1: `/data/db/db1` [primary]
+  - db2: `/data/db/db2`
+  - db3: `/data/db/db3`
 
 #### REPLICA SET NAME
 It's called: `rs0`
 
 ## Notes
 
-If you mount something into `/data/db1`, the container will not go through it's initialization process, but it will also assume that you have mounted all 3 volumes -- so mount all 3 or none. You can customize the username/password by providing `USERNAME`/`PASSWORD` environment variables (but you probably don't need to).
+If you mount something into `/data/db/db1`, the container will not go through it's initialization process, but it will also assume that you have all 3 directories -- so mount all or none. You can customize the username/password by providing `USERNAME`/`PASSWORD` environment variables (but you probably don't need to).
 
 ### Example Run
 
