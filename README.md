@@ -23,7 +23,7 @@ Each instance exposes a port, all listening on 0.0.0.0 interface:
   - db3: `27003`
 
 #### DATA
-The container will create volumes, but you can mount them to your host at these paths:
+The container will create one volume at `/data`, but you can mount one or more to your host at these paths:
 
   - db1: `/data/db1` [primary]
   - db2: `/data/db2`
@@ -34,11 +34,11 @@ It's called: `rs0`
 
 ## Notes
 
-If you mount in the `/data/db1` volume, the container will not go through it's initialization process, but it will also assume that you have mounted all 3 volumes -- so mount all 3 or none. You can customize the username/password by providing `USERNAME`/`PASSWORD` environment variables (but you probably don't need to).
+If you mount something into `/data/db1`, the container will not go through it's initialization process, but it will also assume that you have mounted all 3 volumes -- so mount all 3 or none. You can customize the username/password by providing `USERNAME`/`PASSWORD` environment variables (but you probably don't need to).
 
 ### Example Run
 
-    docker run -d --name mongo -v $(pwd)/db1:/data/db1 -v $(pwd)/db2:/data/db2 -v $(pwd)/db3:/data/db3 boucher/mongo-local-replicaset
+    docker run -d --name mongo -v $(pwd)/data:/data boucher/mongo-local-replicaset
 
 ### Example Mongo Connection String (from another container)
 

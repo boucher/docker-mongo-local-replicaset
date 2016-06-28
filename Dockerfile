@@ -1,8 +1,8 @@
-FROM mongo:3.2
+FROM mongo:3.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends openssl && rm -rf /var/lib/apt/lists/*
 
-VOLUME /data/db1 /data/db2 /data/db3
+VOLUME /data
 EXPOSE 27001 27002 27003
 
 COPY setup.sh .
