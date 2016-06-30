@@ -45,6 +45,12 @@ if [ "$NEEDS_SETUP" ]; then
     mongo admin --port 27001 -u $USERNAME -p $PASSWORD --eval "db.runCommand({ replSetInitiate: $CONFIG })"
 fi
 
+sleep 10
+
+mongo admin --port 27001 -u $USERNAME -p $PASSWORD --eval "db.runCommand({ setParameter: 1, quiet: 1 })"
+mongo admin --port 27002 -u $USERNAME -p $PASSWORD --eval "db.runCommand({ setParameter: 1, quiet: 1 })"
+mongo admin --port 27003 -u $USERNAME -p $PASSWORD --eval "db.runCommand({ setParameter: 1, quiet: 1 })"
+
 term_handler() {
   if [ $DB1_PID -ne 0 ]; then
     echo "TRAP"
