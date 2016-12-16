@@ -3,7 +3,7 @@ set -e
 
 USERNAME=${USERNAME:=dev}
 PASSWORD=${PASSWORD:=dev}
-IP=`/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1`
+
 
 function waitForMongo {
     port=$1
@@ -60,8 +60,8 @@ waitForMongo 27001 $USERNAME $PASSWORD
 waitForMongo 27002
 waitForMongo 27003
 
-echo "CONFIGURING REPLICA SET: $IP"
-CONFIG="{ _id: 'rs0', members: [{_id: 0, host: '$IP:27001', priority: 2 }, { _id: 1, host: '$IP:27002' }, { _id: 2, host: '$IP:27003' } ]}"
+echo "CONFIGURING REPLICA SET: $HOSTNAME"
+CONFIG="{ _id: 'rs0', members: [{_id: 0, host: '$HOSTNAME:27001', priority: 2 }, { _id: 1, host: '$HOSTNAME:27002' }, { _id: 2, host: '$HOSTNAME:27003' } ]}"
 mongo admin --port 27001 -u $USERNAME -p $PASSWORD --eval "db.runCommand({ replSetInitiate: $CONFIG })"
 
 waitForMongo 27002 $USERNAME $PASSWORD
